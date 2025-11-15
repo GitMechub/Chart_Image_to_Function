@@ -102,8 +102,11 @@ def escalar_curva(contorno, x_fim, y_fim, x_ini=0., y_ini=0., eq_scale=True):
 
 if uploaded:
     imgp = Image.open(uploaded).convert("RGBA")
+    st.write(type(imgp))
+    
     # Calculate the scaling factor
     width_ratio = 800 / imgp.width
+    st.write(type(width_ratio))
     height_ratio = 800 / imgp.height
     scaling_factor = min(width_ratio, height_ratio)
     new_width = int(imgp.width * scaling_factor)
@@ -320,6 +323,7 @@ with tab_about:
 st.sidebar.image(img_logo)
 st.sidebar.markdown(
     "[![YouTube](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://www.youtube.com/@Mechub?sub_confirmation=1) [![GitHub](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/GitMechub)")
+
 
 
 
