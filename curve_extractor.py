@@ -146,7 +146,7 @@ if uploaded:
             fill_color="rgba(255, 0, 0, 0.0)",
             stroke_width=brush,
             stroke_color="#FF0000",
-            background_image=imgp,
+            background_image=bg_img,
             update_streamlit=True,
             #height=imgp.height,
             #width=imgp.width,
@@ -323,6 +323,7 @@ with tab_about:
 st.sidebar.image(img_logo)
 st.sidebar.markdown(
     "[![YouTube](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://www.youtube.com/@Mechub?sub_confirmation=1) [![GitHub](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/GitMechub)")
+
 
 
 
