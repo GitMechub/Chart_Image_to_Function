@@ -101,19 +101,19 @@ def escalar_curva(contorno, x_fim, y_fim, x_ini=0., y_ini=0., eq_scale=True):
   return curva_esc
 
 if uploaded:
-    img = Image.open(uploaded).convert("RGBA")
+    imgp = Image.open(uploaded).convert("RGBA")
     # Calculate the scaling factor
-    width_ratio = 800 / img.width
-    height_ratio = 800 / img.height
+    width_ratio = 800 / imgp.width
+    height_ratio = 800 / imgp.height
     scaling_factor = min(width_ratio, height_ratio)
-    new_width = int(img.width * scaling_factor)
-    new_height = int(img.height * scaling_factor)
-    img = img.resize((new_width, new_height), Image.Resampling.LANCZOS)
+    new_width = int(imgp.width * scaling_factor)
+    new_height = int(imgp.height * scaling_factor)
+    imgp = imgp.resize((new_width, new_height), Image.Resampling.LANCZOS)
 
     #max_size = (800, 800)
     #img = img.resize(max_size, Image.Resampling.LANCZOS)
 
-    bg_img = np.array(img)  # RGBA
+    bg_img = np.array(imgp)  # RGBA
     rgb = bg_img[..., :3].copy()
 
     auto = sidebar.checkbox("Detect background color automatically", value=True)
@@ -143,10 +143,10 @@ if uploaded:
             fill_color="rgba(255, 0, 0, 0.0)",
             stroke_width=brush,
             stroke_color="#FF0000",
-            background_image=img,
+            background_image=imgp,
             update_streamlit=True,
-            height=img.height,
-            width=img.width,
+            height=imgp.height,
+            width=imgp.width,
             drawing_mode="freedraw",
             key="canvas",
         )
@@ -320,6 +320,7 @@ with tab_about:
 st.sidebar.image(img_logo)
 st.sidebar.markdown(
     "[![YouTube](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://www.youtube.com/@Mechub?sub_confirmation=1) [![GitHub](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/GitMechub)")
+
 
 
 
