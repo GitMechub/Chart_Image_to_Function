@@ -6,7 +6,8 @@ scipy==1.16.3
 
 streamlit==1.32.0
 
-streamlit_drawable_canvas @ git+https://github.com/bowespublishing/streamlit-drawable-canvas.git@41b95ec
+streamlit-drawable-canvas==0.9.3
+
 
 
 
