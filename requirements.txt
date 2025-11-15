@@ -1,10 +1,11 @@
-streamlit
 opencv-python-headless
 numpy
 matplotlib
 scipy
 scikit-learn
 Pillow
-streamlit-drawable-canvas @ git+https://github.com/bowespublishing/streamlit-drawable-canvas.git
+streamlit==1.41.0
+streamlit-drawable-canvas==0.9.3
+
 
 
