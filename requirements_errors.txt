@@ -6,7 +6,7 @@ scipy==1.16.3
 streamlit==1.51.0
 streamlit-drawable-canvas-fix==0.9.7
 
-AttributeError: 'int' object has no attribute 'width'
+>> AttributeError: 'int' object has no attribute 'width'
 
 ---
 
@@ -18,6 +18,19 @@ scipy==1.16.3
 streamlit==1.51.0
 streamlit-drawable-canvas-fix==0.9.7
 
-ERROR libGL.so.1.
+>> ERROR libGL.so.1.
+
+---
+
+matplotlib==3.10.7
+opencv-python-headless==4.11.0.86
+Pillow==12.0.0
+scikit-learn==1.7.2
+scipy==1.16.3
+streamlit<=1.40.2
+streamlit-drawable-canvas==0.8
+
+>> OK...
+>> Needs Session State for the uploaded image
 
 ---
