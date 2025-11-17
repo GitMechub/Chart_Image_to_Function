@@ -1,4 +1,4 @@
-[# Chart_Image_to_Function
+[App Link
 ](https://curveextractor.streamlit.app/)
 
 ## About Curve Extractor:
