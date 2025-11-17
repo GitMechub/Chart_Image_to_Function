@@ -18,7 +18,7 @@ scipy==1.16.3
 streamlit==1.51.0
 streamlit-drawable-canvas-fix==0.9.7
 
->> AttributeError: 'int' object has no attribute 'width'
+>> AttributeError: 'int' object has no attribute 'width' (url image function)
 
 ---
 
