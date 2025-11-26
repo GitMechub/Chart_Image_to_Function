@@ -4,7 +4,9 @@ scikit-learn==1.7.2
 scipy==1.16.3
 streamlit<=1.50
 streamlit-drawable-canvas==0.8
+xlsxwriter==3.2.3
 #git+https://github.com/Gitjimr/streamlit-drawable-canvas.git@develop
+
 
 
 
