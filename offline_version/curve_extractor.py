@@ -218,6 +218,7 @@ if uploaded:
                 coef = np.polyfit(x, y, grau)
                 p = np.poly1d(coef)
                 y_pred = p(x)
+                rmse = np.sqrt(mean_squared_error(y, y_pred))
                 df_data = pd.DataFrame({"x": x, "y": y_pred}) #*
                 modelos[f'Polynomial of degree {grau}'] = (p, y_pred, rmse, df_data) #*
 
@@ -430,6 +431,7 @@ with tab_about:
 st.sidebar.image(img_logo)
 st.sidebar.markdown(
     "[![YouTube](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://www.youtube.com/@Mechub?sub_confirmation=1) [![GitHub](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/GitMechub)")
+
 
 
 
