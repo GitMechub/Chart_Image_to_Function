@@ -105,6 +105,19 @@ def escalar_curva(contorno, x_fim, y_fim, x_ini=0., y_ini=0., eq_scale=True):
 
   return curva_esc
 
+#*
+
+def manter_apply_button_ativo():
+    st.session_state.generate_trigger = True
+
+if "generate_trigger" not in st.session_state:
+    st.session_state.generate_trigger = False
+
+def set_generate_flag():
+    st.session_state.generate_trigger = True
+
+#*
+
 if uploaded:
     img = Image.open(uploaded).convert("RGBA")
     # Calculate the scaling factor
@@ -147,7 +160,7 @@ if uploaded:
             key="canvas",
         )
         
-    apply = tab_edit.button("Apply", use_container_width=True)
+    apply = tab_edit.button("Apply", use_container_width=True) or st.session_state.get("generate_trigger")
     if apply and canvas_result is not None and canvas_result.image_data is not None:
         # máscara de onde houve traço (alpha > 0)
         draw = (canvas_result.image_data[...,3] > 0).astype(np.uint8)*255  # 0/255
@@ -285,6 +298,11 @@ if uploaded:
         plt.legend()
         plt.tight_layout()
         #plt.show()
+
+        #*
+        st.session_state.generate_trigger = False
+        #*
+
         with tab_result:
             col2.pyplot(fig)
             # Ranking por RMSE
@@ -292,6 +310,69 @@ if uploaded:
             ranking = sorted(modelos.items(), key=lambda x: x[1][2])
             for nome, (_, __, erro) in ranking:
                 col1.write(f"{nome}: RMSE = {erro:.6f}")
+
+            #*
+            col1.divider()
+            option_value_setup = ["Y", "X"]
+            option_value = col1.selectbox(
+                "Desired value for the selected degree",
+                option_value_setup, on_change=manter_apply_button_ativo
+            )
+            option_value_ = (set(option_value_setup) - {option_value}).pop()
+            if option_value == "Y":
+                x_y_input = col1.number_input(f"Insert {option_value_} value to get {option_value}", value = x_ini, min_value = x_ini, max_value = x_fim, on_change=manter_apply_button_ativo) if x_fim>=x_ini else col1.number_input(f"Insert {option_value_} value to get {option_value}", value = x_ini, min_value = x_fim, max_value = x_ini, on_change=manter_apply_button_ativo)
+                func_x_y_input = modelos[f'Polynomial of degree {poly_dg}'][0]  # pega o p(x)
+                result_x_y_input = func_x_y_input(x_y_input)
+                col1.write(result_x_y_input)
+            else:
+                # usuário quer X (entrando Y para obter X)
+                x_y_input = col1.number_input(
+                    f"Insert {option_value_} value to get {option_value}",
+                    value=y_fim,
+                    min_value=y_ini,
+                    max_value=y_fim,
+                    on_change=manter_apply_button_ativo
+                ) if y_fim >= y_ini else col1.number_input(
+                    f"Insert {option_value_} value to get {option_value}",
+                    value=y_fim,
+                    min_value=y_fim,
+                    max_value=y_ini,
+                    on_change=manter_apply_button_ativo
+                )
+
+                # pega o polinômio selecionado (mesma forma que no caso X->Y)
+                p = modelos[f'Polynomial of degree {poly_dg}'][0]  # numpy.poly1d
+
+                # tenta inverter: p(x) = y_input -> p(x) - y_input = 0
+                try:
+                    # copia coeficientes e subtrai y do termo independente
+                    coeffs = p.coeffs.copy()
+                    coeffs[-1] = coeffs[-1] - float(x_y_input)
+
+                    # calcula raízes do polinômio
+                    roots = np.roots(coeffs)
+
+                    # filtra raízes reais (imaginarie ~ 0)
+                    real_roots = [float(r.real) for r in roots if np.isclose(r.imag, 0, atol=1e-8)]
+
+                    # determina intervalo válido em x a partir dos pontos extraídos
+                    xmin, xmax = float(np.min(x)), float(np.max(x))
+                    tol = 1e-6
+                    in_range = [r for r in real_roots if (r >= xmin - tol and r <= xmax + tol)]
+
+                    if len(real_roots) == 0:
+                        col1.warning("No real roots found for this Y.")
+                    else:
+                        # mostra raízes dentro do intervalo primeiro
+                        if in_range:
+                            for rx in in_range:
+                                col1.write(rx)
+                        else:
+                            col1.warning("No real root found within the detected X range.")
+
+                except Exception as e:
+                    col1.error(f"Error solving for x: {e}")
+            #*
 
 with tab_about:
     st.markdown('''
@@ -316,6 +397,7 @@ with tab_about:
 st.sidebar.image(img_logo)
 st.sidebar.markdown(
     "[![YouTube](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://www.youtube.com/@Mechub?sub_confirmation=1) [![GitHub](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/GitMechub)")
+
 
 
 
