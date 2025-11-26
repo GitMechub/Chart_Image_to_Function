@@ -7,6 +7,7 @@ from scipy.optimize import curve_fit
 from sklearn.metrics import mean_squared_error
 import os
 import io
+import pandas as pd
 
 st.session_state.update(st.session_state)
 for k, v in st.session_state.items():
@@ -372,7 +373,34 @@ if uploaded:
 
                 except Exception as e:
                     col1.error(f"Error solving for x: {e}")
-            #*
+            # *
+            ########################### XLSX FILE
+
+            try:
+
+                modelo_ = modelos[f'Polynomial of degree {poly_dg}']
+                df_data_ = modelo_[3]
+
+                file_name_sheet = 'curve_data.xlsx'
+                # Contorno principal
+                df_data = pd.DataFrame(df_data_, columns=['x', 'y'])
+
+                buffer_ = io.BytesIO()
+                with pd.ExcelWriter(buffer_, engine="xlsxwriter") as writer:
+                    df_data.to_excel(writer, sheet_name='Data', index=False)
+
+                    writer.close()
+
+                    col2.download_button(
+                        label="Download .xlsx",
+                        data=buffer_,
+                        file_name=file_name_sheet,
+                        use_container_width=True,
+                        on_click=manter_apply_button_ativo,
+                    )
+
+            except Exception as e:
+                col2.error("Error: Generating the .xlsx file.")
 
 with tab_about:
     st.markdown('''
@@ -397,6 +425,7 @@ with tab_about:
 st.sidebar.image(img_logo)
 st.sidebar.markdown(
     "[![YouTube](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://www.youtube.com/@Mechub?sub_confirmation=1) [![GitHub](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/GitMechub)")
+
 
 
 
