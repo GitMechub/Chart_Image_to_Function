@@ -215,7 +215,8 @@ if uploaded:
             p = np.poly1d(coef)
             y_pred = p(x)
             rmse = np.sqrt(mean_squared_error(y, y_pred))
-            modelos[f'Polynomial of degree {grau}'] = (p, y_pred, rmse)
+            df_data = pd.DataFrame({"x": x, "y": y_pred}) #*
+            modelos[f'Polynomial of degree {grau}'] = (p, y_pred, rmse, df_data) #*
 
             # Print da equação
             #eq = f'Polynomial of degree {grau}:\ny = '
@@ -286,7 +287,7 @@ if uploaded:
         x_fit = np.linspace(min(x), max(x), 200)
         plt.scatter(x, y, label='Data', color='black')
 
-        for nome, (func, y_model, erro) in modelos.items():
+        for nome, (func, y_model, erro, data) in modelos.items():
             try:
                 y_fit = func(x_fit)
                 plt.plot(x_fit, y_fit, label=f'{nome} (RMSE={erro:.5f})')
@@ -309,7 +310,7 @@ if uploaded:
             # Ranking por RMSE
             col1.write("Ranking the functions by error (RMSE):")
             ranking = sorted(modelos.items(), key=lambda x: x[1][2])
-            for nome, (_, __, erro) in ranking:
+            for nome, (_, __, erro, data) in ranking:
                 col1.write(f"{nome}: RMSE = {erro:.6f}")
 
             #*
@@ -425,6 +426,7 @@ with tab_about:
 st.sidebar.image(img_logo)
 st.sidebar.markdown(
     "[![YouTube](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://www.youtube.com/@Mechub?sub_confirmation=1) [![GitHub](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/GitMechub)")
+
 
 
 
