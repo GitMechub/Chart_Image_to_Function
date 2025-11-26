@@ -4,4 +4,5 @@ scikit_learn==1.7.2
 scipy==1.16.3
 streamlit==1.40.2
 streamlit_drawable_canvas==0.9.3
+streamlit-player==0.1.5
 xlsxwriter==3.2.3
