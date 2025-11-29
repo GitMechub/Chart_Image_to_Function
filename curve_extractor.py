@@ -423,10 +423,15 @@ with tab_about:
     Use it to digitize curves from papers, PDFs, screenshots, or experimental plots quickly and accurately.
 
     ''')
+    
+    st.divider()
+    
+    st_player("https://youtu.be/Tp2fYvOXsAY")
 
 st.sidebar.image(img_logo)
 st.sidebar.markdown(
     "[![YouTube](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://www.youtube.com/@Mechub?sub_confirmation=1) [![GitHub](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/GitMechub)")
+
 
 
 
