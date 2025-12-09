@@ -144,10 +144,10 @@ if uploaded:
     poly_dg = sidebar.number_input("> Degree of The Polynomial", value=4, label_visibility="hidden")
     sidebar.subheader('Chart x,y Limits')
     cols1, cols2 = sidebar.columns(2)
-    x_ini = cols1.number_input("Initial X", value=0.)
-    x_fim = cols1.number_input("Final X", value=1.)
-    y_ini = cols2.number_input("Initial Y", value=0.)
-    y_fim = cols2.number_input("Final Y", value=1.)
+    x_ini = cols1.number_input("Initial X", value=0.,format="%0.5f")
+    x_fim = cols1.number_input("Final X", value=1.,format="%0.5f")
+    y_ini = cols2.number_input("Initial Y", value=0.,format="%0.5f")
+    y_fim = cols2.number_input("Final Y", value=1.,format="%0.5f")
 
     with tab_edit:
         canvas_result = st_canvas(
@@ -431,6 +431,7 @@ with tab_about:
 st.sidebar.image(img_logo)
 st.sidebar.markdown(
     "[![YouTube](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://www.youtube.com/@Mechub?sub_confirmation=1) [![GitHub](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/GitMechub)")
+
 
 
 
