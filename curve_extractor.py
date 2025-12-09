@@ -323,7 +323,7 @@ if uploaded:
             )
             option_value_ = (set(option_value_setup) - {option_value}).pop()
             if option_value == "Y":
-                x_y_input = col1.number_input(f"Insert {option_value_} value to get {option_value}", value = x_ini, min_value = x_ini, max_value = x_fim, on_change=manter_apply_button_ativo) if x_fim>=x_ini else col1.number_input(f"Insert {option_value_} value to get {option_value}", value = x_ini, min_value = x_fim, max_value = x_ini, on_change=manter_apply_button_ativo)
+                x_y_input = col1.number_input(f"Insert {option_value_} value to get {option_value}", value = x_ini, min_value = x_ini, max_value = x_fim, format="%0.5f", on_change=manter_apply_button_ativo) if x_fim>=x_ini else col1.number_input(f"Insert {option_value_} value to get {option_value}", value = x_ini, min_value = x_fim, max_value = x_ini, format="%0.5f", on_change=manter_apply_button_ativo)
                 func_x_y_input = modelos[f'Polynomial of degree {poly_dg}'][0]  # pega o p(x)
                 result_x_y_input = func_x_y_input(x_y_input)
                 col1.write(result_x_y_input)
@@ -333,13 +333,13 @@ if uploaded:
                     f"Insert {option_value_} value to get {option_value}",
                     value=y_fim,
                     min_value=y_ini,
-                    max_value=y_fim,
+                    max_value=y_fim, format="%0.5f",
                     on_change=manter_apply_button_ativo
                 ) if y_fim >= y_ini else col1.number_input(
                     f"Insert {option_value_} value to get {option_value}",
                     value=y_fim,
                     min_value=y_fim,
-                    max_value=y_ini,
+                    max_value=y_ini, format="%0.5f",
                     on_change=manter_apply_button_ativo
                 )
 
@@ -431,6 +431,7 @@ with tab_about:
 st.sidebar.image(img_logo)
 st.sidebar.markdown(
     "[![YouTube](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://www.youtube.com/@Mechub?sub_confirmation=1) [![GitHub](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/GitMechub)")
+
 
 
 
